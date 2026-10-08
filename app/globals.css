@@ -1,26 +1,87 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-charcoal: #111820;
+  --color-charcoal-mid: #18232D;
+  --color-charcoal-light: #263540;
+  --color-blue: #1597E5;
+  --color-blue-dark: #0f7bc4;
+  --color-steel: #6B7A8D;
+  --color-silver: #A8B4BE;
+  --color-light-bg: #F4F6F8;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-charcoal: #111820;
+  --color-charcoal-mid: #18232D;
+  --color-charcoal-light: #263540;
+  --color-blue: #1597E5;
+  --color-blue-dark: #0f7bc4;
+  --color-steel: #6B7A8D;
+  --color-silver: #A8B4BE;
+  --color-light-bg: #F4F6F8;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: #111820;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  letter-spacing: -0.01em;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.animate-fade-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #1597E5; border-radius: 3px; }
+
+/* Blue accent line utility */
+.blue-rule {
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: #1597E5;
+  margin-bottom: 1rem;
+}
+
+/* Form focus states */
+input:focus, textarea:focus, select:focus {
+  outline: 2px solid #1597E5;
+  outline-offset: 1px;
+}
+
+/* Admin sidebar active */
+.admin-nav-active {
+  background: rgba(21, 151, 229, 0.15);
+  border-left: 3px solid #1597E5;
+  color: #1597E5;
 }
