@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import type { Locale } from '@/lib/localization';
-import { pick } from '@/lib/localization';
+import { pick, localePrefix } from '@/lib/localization';
 import { getGallery, getPageContent, getSettings } from '@/lib/data';
 import { IMAGES } from '@/lib/defaults';
 import { buildMetadata } from '@/lib/seo';
@@ -227,7 +227,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
                 ? "Depuis Cornwall, en Ontario, MUNI-QUIP sert les villes, les municipalités et les services des travaux publics de l'Ontario et du Québec."
                 : 'From our base in Cornwall, Ontario, MUNI-QUIP serves cities, towns, municipalities and public works departments across Ontario and Quebec.'}
             </p>
-            <Link href={`/${lang}/contact`} className="group inline-flex items-center justify-center gap-2 w-full sm:w-fit px-7 py-3.5 text-sm font-semibold text-white hover:brightness-110" style={{ backgroundColor: '#1597E5' }}>
+            <Link href={`${localePrefix(lang)}/contact`} className="group inline-flex items-center justify-center gap-2 w-full sm:w-fit px-7 py-3.5 text-sm font-semibold text-white hover:brightness-110" style={{ backgroundColor: '#1597E5' }}>
               {isFr ? 'Parlez à MUNI-QUIP' : 'Talk to MUNI-QUIP'}
               <ArrowRight />
             </Link>

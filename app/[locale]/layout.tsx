@@ -4,6 +4,7 @@ import { getSettings } from '@/lib/data';
 import type { Locale } from '@/lib/localization';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import { homePath } from '@/lib/localization';
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
@@ -25,8 +26,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       ? "Équipements municipaux, recyclage d'asphalte, entretien des routes, entretien hivernal, technologie de flotte, pièces et service en Ontario et Québec."
       : 'Municipal equipment, asphalt recycling, road maintenance, winter maintenance, fleet technology, parts and service solutions across Ontario and Quebec.',
     alternates: {
-      canonical: `/${locale}`,
-      languages: { en: '/en', fr: '/fr' },
+      canonical: homePath(locale),
+      languages: { 'en-CA': '/', 'fr-CA': '/fr' },
     },
   };
 }

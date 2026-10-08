@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { homePath } from '@/lib/localization';
 
 interface LogoProps {
   locale?: string;
@@ -15,7 +16,7 @@ const SIZES = {
 
 export default function Logo({ locale = 'en', className = '', size = 'header' }: LogoProps) {
   return (
-    <Link href={`/${locale}`} className={`inline-flex items-center flex-shrink-0 ${className}`} aria-label="MUNI-QUIP — Home">
+    <Link href={homePath(locale)} className={`inline-flex items-center flex-shrink-0 ${className}`} aria-label="MUNI-QUIP — Home">
       <Image
         src="/logo-horizontal.png"
         alt="MUNI-QUIP — Reliable Municipal Solutions"

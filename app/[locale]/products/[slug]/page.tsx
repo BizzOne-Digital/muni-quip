@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import type { Locale } from '@/lib/localization';
-import { pick, pickList } from '@/lib/localization';
+import { pick, pickList, homePath, localePrefix } from '@/lib/localization';
 import { getProductBySlug, getProducts, getServices } from '@/lib/data';
 import { DEFAULT_PRODUCTS } from '@/lib/defaults';
 import { buildMetadata } from '@/lib/seo';
@@ -65,7 +65,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const applications = pickList(lang, product.applicationsEn, product.applicationsFr);
   const specs = (product.specifications ?? []).filter((s) => s.key && s.value);
   const gallery = (product.galleryImages ?? []).filter(Boolean);
-  const quoteHref = `/${lang}/booking?type=quote&product=${encodeURIComponent(name)}`;
+  const quoteHref = `${localePrefix(lang)}/booking?type=quote&product=${encodeURIComponent(name)}`;
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -86,9 +86,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <div className="order-2 lg:order-1 flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-12 lg:py-20">
             <nav aria-label="Breadcrumb" className="mb-8">
               <ol className="flex flex-wrap items-center gap-2 text-xs text-gray-400">
-                <li><Link href={`/${lang}`} className="hover:text-white">{isFr ? 'Accueil' : 'Home'}</Link></li>
+                <li><Link href={homePath(lang)} className="hover:text-white">{isFr ? 'Accueil' : 'Home'}</Link></li>
                 <li aria-hidden="true">/</li>
-                <li><Link href={`/${lang}/services${service ? `#${service.slug}` : ''}`} className="hover:text-white">{categoryLabel}</Link></li>
+                <li><Link href={`${localePrefix(lang)}/services${service ? `#${service.slug}` : ''}`} className="hover:text-white">{categoryLabel}</Link></li>
                 <li aria-hidden="true">/</li>
                 <li className="text-gray-200" aria-current="page">{name}</li>
               </ol>
@@ -113,7 +113,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 <ArrowRight />
               </Link>
               <Link
-                href={`/${lang}/booking?type=consultation&product=${encodeURIComponent(name)}`}
+                href={`${localePrefix(lang)}/booking?type=consultation&product=${encodeURIComponent(name)}`}
                 className="inline-flex items-center justify-center px-7 py-3.5 text-sm font-semibold text-white uppercase tracking-wide border border-white/40 hover:bg-white hover:text-[#111820] transition-colors"
               >
                 {isFr ? 'Réserver une consultation' : 'Book a Consultation'}
@@ -237,7 +237,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               {related.map((p) => {
                 const rName = pick(lang, p.nameEn, p.nameFr);
                 return (
-                  <Link key={p.slug} href={`/${lang}/products/${p.slug}`} className="group block bg-white">
+                  <Link key={p.slug} href={`${localePrefix(lang)}/products/${p.slug}`} className="group block bg-white">
                     <div className="relative h-44 overflow-hidden">
                       <ImageWithFallback src={p.heroImage} alt={rName} fill className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" sizes="(max-width: 640px) 100vw, 33vw" />
                     </div>

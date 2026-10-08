@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { Locale } from '@/lib/localization';
-import { translations, pick } from '@/lib/localization';
+import { translations, pick, localePrefix } from '@/lib/localization';
 import type { PageContentData } from '@/lib/defaults';
 import { IMAGES } from '@/lib/defaults';
 import ImageWithFallback from '@/components/ui/ImageWithFallback';
@@ -68,7 +68,7 @@ export default function HeroSection({ locale, content }: HeroSectionProps) {
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-12">
             <Link
-              href={`/${locale}/services`}
+              href={`${localePrefix(locale)}/services`}
               className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:brightness-110 hover:-translate-y-0.5"
               style={{ backgroundColor: '#1597E5' }}
             >
@@ -76,7 +76,7 @@ export default function HeroSection({ locale, content }: HeroSectionProps) {
               <ArrowRight size={16} />
             </Link>
             <Link
-              href={`/${locale}/contact`}
+              href={`${localePrefix(locale)}/contact`}
               className="inline-flex items-center justify-center px-7 py-3.5 text-sm font-semibold text-white border border-white/50 transition-all duration-200 hover:bg-white hover:text-[#111820]"
             >
               {cta2}

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { Locale } from '@/lib/localization';
-import { translations, pick } from '@/lib/localization';
+import { translations, pick, localePrefix } from '@/lib/localization';
 import type { PageContentData, ProductData } from '@/lib/defaults';
 import { blockText } from '@/lib/pageBlocks';
 import ImageWithFallback from '@/components/ui/ImageWithFallback';
@@ -46,7 +46,7 @@ export default function FeaturedProducts({ locale, products, content }: Featured
                 key={product.slug}
                 className="group flex flex-col bg-white shadow-[0_6px_24px_rgba(0,0,0,0.25)] transition-transform duration-300 hover:-translate-y-1"
               >
-                <Link href={`/${locale}/products/${product.slug}`} className="relative block h-48 overflow-hidden bg-gray-100" tabIndex={-1} aria-hidden="true">
+                <Link href={`${localePrefix(locale)}/products/${product.slug}`} className="relative block h-48 overflow-hidden bg-gray-100" tabIndex={-1} aria-hidden="true">
                   <ImageWithFallback
                     src={product.heroImage}
                     alt=""
@@ -61,7 +61,7 @@ export default function FeaturedProducts({ locale, products, content }: Featured
                   <p className="text-sm text-gray-600 leading-relaxed mt-2 mb-5 flex-1">{desc}</p>
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
                     <Link
-                      href={`/${locale}/products/${product.slug}`}
+                      href={`${localePrefix(locale)}/products/${product.slug}`}
                       className="group/btn inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white hover:brightness-110"
                       style={{ backgroundColor: '#1597E5' }}
                       aria-label={`${t.learnMore}: ${name}`}
@@ -70,7 +70,7 @@ export default function FeaturedProducts({ locale, products, content }: Featured
                       <ArrowRight size={12} />
                     </Link>
                     <Link
-                      href={`/${locale}/booking?product=${encodeURIComponent(name)}`}
+                      href={`${localePrefix(locale)}/booking?product=${encodeURIComponent(name)}`}
                       className="text-xs font-semibold text-[#1597E5] hover:text-[#0f7bc4]"
                     >
                       {t.requestQuote}

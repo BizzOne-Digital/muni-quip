@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import type { Locale } from '@/lib/localization';
-import { pick } from '@/lib/localization';
+import { pick, localePrefix } from '@/lib/localization';
 import { getPageContent, getProducts, getServices } from '@/lib/data';
 import { IMAGES } from '@/lib/defaults';
 import { buildMetadata } from '@/lib/seo';
@@ -110,7 +110,7 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
                         const pName = pick(lang, p.nameEn, p.nameFr);
                         return (
                           <li key={p.slug}>
-                            <Link href={`/${lang}/products/${p.slug}`} className="group flex items-center gap-3 bg-white border border-gray-200 p-2 pr-3 hover:border-[#1597E5] transition-colors">
+                            <Link href={`${localePrefix(lang)}/products/${p.slug}`} className="group flex items-center gap-3 bg-white border border-gray-200 p-2 pr-3 hover:border-[#1597E5] transition-colors">
                               <span className="relative w-14 h-14 flex-shrink-0 overflow-hidden bg-gray-100">
                                 <ImageWithFallback src={p.heroImage} alt="" fill className="object-cover" sizes="56px" />
                               </span>
@@ -126,14 +126,14 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
 
                 <div className="flex flex-col sm:flex-row gap-3">
                   <Link
-                    href={`/${lang}/booking?service=${encodeURIComponent(title)}`}
+                    href={`${localePrefix(lang)}/booking?service=${encodeURIComponent(title)}`}
                     className="group inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold text-white hover:brightness-110"
                     style={{ backgroundColor: '#1597E5' }}
                   >
                     {isFr ? 'Demander une soumission' : 'Request a Quote'}
                     <ArrowRight />
                   </Link>
-                  <Link href={`/${lang}/contact`} className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-[#111820] border border-gray-300 hover:border-[#111820] transition-colors">
+                  <Link href={`${localePrefix(lang)}/contact`} className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-[#111820] border border-gray-300 hover:border-[#111820] transition-colors">
                     {isFr ? 'Parler à un expert' : 'Talk to an Expert'}
                   </Link>
                 </div>
@@ -151,7 +151,7 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
               ? 'Dites-nous ce que vous cherchez à améliorer. Nous vous aiderons à trouver la solution pratique.'
               : "Tell us what you're trying to improve. We'll help you find the practical solution."}
           </p>
-          <Link href={`/${lang}/booking`} className="group inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 text-sm font-semibold text-white hover:brightness-110" style={{ backgroundColor: '#1597E5' }}>
+          <Link href={`${localePrefix(lang)}/booking`} className="group inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 text-sm font-semibold text-white hover:brightness-110" style={{ backgroundColor: '#1597E5' }}>
             {isFr ? 'Réserver une consultation' : 'Book a Consultation'}
             <ArrowRight />
           </Link>

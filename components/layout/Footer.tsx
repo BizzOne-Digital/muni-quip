@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { Locale } from '@/lib/localization';
-import { translations } from '@/lib/localization';
+import { translations, homePath, localePrefix } from '@/lib/localization';
 import Logo from '@/components/ui/Logo';
 import type { SettingsData } from '@/lib/defaults';
 
@@ -14,11 +14,11 @@ export default function Footer({ locale, settings }: FooterProps) {
   const t = translations[locale];
 
   const navLinks = [
-    { href: `/${locale}`, label: t.nav.home },
-    { href: `/${locale}/about`, label: t.nav.about },
-    { href: `/${locale}/services`, label: t.nav.services },
-    { href: `/${locale}/booking`, label: t.nav.booking },
-    { href: `/${locale}/contact`, label: t.nav.contact },
+    { href: homePath(locale), label: t.nav.home },
+    { href: `${localePrefix(locale)}/about`, label: t.nav.about },
+    { href: `${localePrefix(locale)}/services`, label: t.nav.services },
+    { href: `${localePrefix(locale)}/booking`, label: t.nav.booking },
+    { href: `${localePrefix(locale)}/contact`, label: t.nav.contact },
   ];
 
   return (
@@ -38,14 +38,14 @@ export default function Footer({ locale, settings }: FooterProps) {
             {/* Language switcher */}
             <div className="flex items-center gap-3 text-xs tracking-widest font-medium">
               <Link
-                href={`/en`}
+                href="/"
                 className={`transition-colors ${locale === 'en' ? 'text-blue-400' : 'text-gray-500 hover:text-gray-300'}`}
               >
                 EN
               </Link>
               <span className="text-gray-600">|</span>
               <Link
-                href={`/fr`}
+                href="/fr"
                 className={`transition-colors ${locale === 'fr' ? 'text-blue-400' : 'text-gray-500 hover:text-gray-300'}`}
               >
                 FR

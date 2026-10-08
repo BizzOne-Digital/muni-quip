@@ -3,6 +3,7 @@ import type { PageContentData } from '@/lib/defaults';
 import { blockImage, blockText } from '@/lib/pageBlocks';
 import ImageWithFallback from '@/components/ui/ImageWithFallback';
 import type { Locale } from '@/lib/localization';
+import { localePrefix } from '@/lib/localization';
 
 export default function AboutSection({ locale, content }: { locale: Locale; content: PageContentData }) {
   const b = (key: string) => blockText(content, key, locale);
@@ -56,7 +57,7 @@ export default function AboutSection({ locale, content }: { locale: Locale; cont
             </div>
 
             <Link
-              href={`/${locale}/about`}
+              href={`${localePrefix(locale)}/about`}
               className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white border border-gray-600 hover:border-gray-400 hover:bg-white/5 transition-all duration-200"
             >
               {b('aboutCta')}

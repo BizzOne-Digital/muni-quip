@@ -11,7 +11,9 @@ export function buildMetadata(opts: {
   image?: string;
 }): Metadata {
   const { locale, path, title, description } = opts;
-  const url = `${SITE_URL}/${locale}${path}`;
+  const enUrl = `${SITE_URL}${path || '/'}`;
+  const frUrl = `${SITE_URL}/fr${path}`;
+  const url = locale === 'fr' ? frUrl : enUrl;
   const image = opts.image
     ? opts.image.startsWith('http') ? opts.image : `${SITE_URL}${opts.image}`
     : undefined;
@@ -22,9 +24,9 @@ export function buildMetadata(opts: {
     alternates: {
       canonical: url,
       languages: {
-        'en-CA': `${SITE_URL}/en${path}`,
-        'fr-CA': `${SITE_URL}/fr${path}`,
-        'x-default': `${SITE_URL}/en${path}`,
+        'en-CA': enUrl,
+        'fr-CA': frUrl,
+        'x-default': enUrl,
       },
     },
     openGraph: {

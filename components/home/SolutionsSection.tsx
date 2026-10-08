@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { Locale } from '@/lib/localization';
-import { translations, pick } from '@/lib/localization';
+import { translations, pick, localePrefix } from '@/lib/localization';
 import type { PageContentData, ServiceData } from '@/lib/defaults';
 import { blockText } from '@/lib/pageBlocks';
 import ImageWithFallback from '@/components/ui/ImageWithFallback';
@@ -57,7 +57,7 @@ export default function SolutionsSection({ locale, services, content }: Solution
                   <h3 className="text-lg font-bold text-[#111820] mb-2 leading-snug">{title}</h3>
                   <p className="text-sm text-gray-600 leading-relaxed mb-5 flex-1">{desc}</p>
                   <Link
-                    href={`/${locale}/services#${svc.slug}`}
+                    href={`${localePrefix(locale)}/services#${svc.slug}`}
                     className="inline-flex items-center gap-2 text-sm font-semibold text-[#1597E5] hover:text-[#0f7bc4]"
                     aria-label={`${cta}: ${title}`}
                   >

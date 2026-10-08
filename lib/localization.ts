@@ -212,3 +212,13 @@ export function pickList(locale: string, en?: string[], fr?: string[]): string[]
   const primary = locale === 'fr' ? fr : en;
   return primary && primary.length ? primary : (locale === 'fr' ? en : fr) ?? [];
 }
+
+/** URL prefix for a locale: English lives at the site root, French under /fr. */
+export function localePrefix(locale: string): string {
+  return locale === 'fr' ? '/fr' : '';
+}
+
+/** Home URL for a locale: '/' (EN) or '/fr' (FR). */
+export function homePath(locale: string): string {
+  return locale === 'fr' ? '/fr' : '/';
+}

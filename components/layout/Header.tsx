@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import type { Locale } from '@/lib/localization';
-import { translations } from '@/lib/localization';
+import { translations, homePath, localePrefix } from '@/lib/localization';
 import Logo from '@/components/ui/Logo';
 
 interface HeaderProps {
@@ -25,19 +25,21 @@ export default function Header({ locale }: HeaderProps) {
   }, []);
 
   const otherLocale = locale === 'en' ? 'fr' : 'en';
-  const switchPath = pathname.replace(`/${locale}`, `/${otherLocale}`);
+  // Route without any language prefix, e.g. '/services' for both '/services' and '/fr/services'.
+  const basePath = pathname.replace(/^\/(en|fr)(?=\/|$)/, '') || '/';
+  const switchPath = otherLocale === 'fr' ? `/fr${basePath === '/' ? '' : basePath}` : basePath;
 
   const navLinks = [
-    { href: `/${locale}`, label: t.home },
-    { href: `/${locale}/about`, label: t.about },
-    { href: `/${locale}/services`, label: t.services },
-    { href: `/${locale}/booking`, label: t.booking },
-    { href: `/${locale}/contact`, label: t.contact },
+    { href: homePath(locale), label: t.home },
+    { href: `${localePrefix(locale)}/about`, label: t.about },
+    { href: `${localePrefix(locale)}/services`, label: t.services },
+    { href: `${localePrefix(locale)}/booking`, label: t.booking },
+    { href: `${localePrefix(locale)}/contact`, label: t.contact },
   ];
 
   const isActive = (href: string) => {
-    if (href === `/${locale}`) return pathname === `/${locale}` || pathname === `/${locale}/`;
-    return pathname.startsWith(href);
+    const target = href.replace(/^\/fr(?=\/|$)/, '') || '/';
+    return target === '/' ? basePath === '/' : basePath.startsWith(target);
   };
 
   return (
@@ -91,7 +93,7 @@ export default function Header({ locale }: HeaderProps) {
 
             {/* CTA Button */}
             <Link
-              href={`/${locale}/contact`}
+              href={`${localePrefix(locale)}/contact`}
               className="px-5 py-2 text-sm font-semibold tracking-wider text-white transition-all duration-200 hover:brightness-110 active:scale-95"
               style={{ backgroundColor: '#1597E5' }}
             >
@@ -147,7 +149,7 @@ export default function Header({ locale }: HeaderProps) {
             ))}
             <div className="pt-3 border-t" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
               <Link
-                href={`/${locale}/contact`}
+                href={`${localePrefix(locale)}/contact`}
                 onClick={() => setMobileOpen(false)}
                 className="flex items-center justify-center w-full py-3 text-sm font-semibold tracking-wider text-white"
                 style={{ backgroundColor: '#1597E5' }}

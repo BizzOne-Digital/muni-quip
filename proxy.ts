@@ -1,8 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyToken, COOKIE_NAME } from '@/lib/auth';
 
+// English is served at the site root (/, /services ...) and French under /fr.
+// Internally every page lives under app/[locale], so root URLs are rewritten to /en.
+const PUBLIC_FILE = /\.[a-zA-Z0-9]+$/;
+
 export async function proxy(request: NextRequest): Promise<NextResponse> {
   const { pathname } = request.nextUrl;
+
+  if (pathname === '/en' || pathname.startsWith('/en/')) {
+    const url = request.nextUrl.clone();
+    url.pathname = pathname.slice(3) || '/';
+    return NextResponse.redirect(url, 308);
+  }
+
+  const isInternal =
+    pathname.startsWith('/admin') ||
+    pathname.startsWith('/api') ||
+    pathname.startsWith('/_next') ||
+    pathname === '/fr' ||
+    pathname.startsWith('/fr/') ||
+    PUBLIC_FILE.test(pathname);
+
+  if (!isInternal) {
+    const url = request.nextUrl.clone();
+    url.pathname = `/en${pathname === '/' ? '' : pathname}`;
+    return NextResponse.rewrite(url);
+  }
 
   // Protect admin routes (except login)
   if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login')) {
@@ -40,5 +64,6 @@ export async function proxy(request: NextRequest): Promise<NextResponse> {
 }
 
 export const config = {
-  matcher: ['/admin/:path*', '/api/admin/:path*'],
+  // Everything except Next internals and static files.
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
 };

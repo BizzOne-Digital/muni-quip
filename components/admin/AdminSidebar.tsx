@@ -64,7 +64,7 @@ export default function AdminSidebar() {
       {/* Footer */}
       <div className="px-5 py-3 md:py-4 border-t flex md:block items-center justify-between gap-4" style={{ borderColor: 'rgba(255,255,255,0.07)' }}>
         <Link
-          href="/en"
+          href="/"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 text-xs text-gray-400 hover:text-gray-200 transition-colors md:mb-3"

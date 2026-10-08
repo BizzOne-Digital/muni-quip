@@ -21,13 +21,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return routes.flatMap((route) =>
     (['en', 'fr'] as const).map((locale) => ({
-      url: `${SITE_URL}/${locale}${route.path}`,
+      url: locale === 'fr' ? `${SITE_URL}/fr${route.path}` : `${SITE_URL}${route.path || '/'}`,
       lastModified: new Date(),
       changeFrequency: route.changeFrequency,
       priority: route.priority,
       alternates: {
         languages: {
-          'en-CA': `${SITE_URL}/en${route.path}`,
+          'en-CA': `${SITE_URL}${route.path || '/'}`,
           'fr-CA': `${SITE_URL}/fr${route.path}`,
         },
       },

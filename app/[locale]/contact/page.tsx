@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import type { Locale } from '@/lib/localization';
-import { pick } from '@/lib/localization';
+import { pick, localePrefix } from '@/lib/localization';
 import { getPageContent, getSettings } from '@/lib/data';
 import { IMAGES } from '@/lib/defaults';
 import { buildMetadata } from '@/lib/seo';
@@ -122,7 +122,7 @@ export default async function ContactPage({ params }: ContactPageProps) {
                 ? "Établis à Cornwall, en Ontario, nous servons les villes, les municipalités et les services des travaux publics de l'Ontario et du Québec, en français et en anglais."
                 : 'Based in Cornwall, Ontario, we serve cities, towns, municipalities and public works departments across Ontario and Quebec, in English and French.'}
             </p>
-            <Link href={`/${lang}/booking`} className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-7 py-3.5 text-sm font-semibold text-white hover:brightness-110" style={{ backgroundColor: '#1597E5' }}>
+            <Link href={`${localePrefix(lang)}/booking`} className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-7 py-3.5 text-sm font-semibold text-white hover:brightness-110" style={{ backgroundColor: '#1597E5' }}>
               {isFr ? 'Réserver un service' : 'Book a Service'} →
             </Link>
           </div>
